@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import FormNewCard from "../FormNewCard";
 import Card from "../Card";
 import { LaneContext } from "../../Context/LaneContext";
-import { ItemTypes } from "../../Constants";
+import ItemTypes from "../../Constants";
 import { useDrop } from "react-dnd";
 import styles from "./style.module.scss";
 
