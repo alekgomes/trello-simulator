@@ -84,3 +84,5 @@ export const LaneProvider = ({ children }) => {
     </LaneContext.Provider>
   );
 };
+
+export default LaneProvider
