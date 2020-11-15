@@ -1,0 +1,24 @@
+.searchBox {
+    display: inline-block;
+    width: max-content;
+    position: relative;
+    transform: translateX(100%);
+
+
+    &__input {
+        box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+        border: none;
+        width: 150px;
+        padding: 4px;
+    }
+
+    &__icon {
+        padding: 4px;
+        box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+        border-radius: 50%;
+        background-color: white;
+        position: absolute;
+        right: 0;
+        transform: translateX(50%);
+    }
+}

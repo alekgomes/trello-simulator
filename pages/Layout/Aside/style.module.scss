@@ -1,0 +1,32 @@
+.nav {
+  width: 100px;
+  height: 100vh;
+  background-color: #03254c;
+  position: fixed;
+  left: 0;
+  
+  hr {
+    width: 75%;
+    border-top: none;
+    border-bottom: 1px solid #eaeaea;
+  }
+
+  ul {
+    padding-left: 0;
+  }
+
+  li {
+    padding: 16px 8px;
+    text-align: center;
+    box-sizing: border-box;
+    font-size: 2rem;
+    color: #eaeaea;
+    list-style: none;
+
+
+    &:hover {
+      background-color: #eaeaea;
+      color: #03254c;
+    }
+  }
+}
