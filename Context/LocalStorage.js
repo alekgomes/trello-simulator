@@ -3,7 +3,5 @@ export const getLanes = () => {
 }
 
 export const updateLocalStorage = (state) => {
-  console.log("CHAMADA")
-
   localStorage.setItem("lanes", JSON.stringify(state))
 }
