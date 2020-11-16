@@ -1,9 +1,11 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
+import {getLanes, updateLocalStorage} from './LocalStorage'
 
 export const LaneContext = createContext();
 
 export const LaneProvider = ({ children }) => {
-  const [state, setSate] = useState({
+
+  const initialState = {
     lane01: {
       id: "lane01",
       infos: [
@@ -40,12 +42,22 @@ export const LaneProvider = ({ children }) => {
         },
       ],
     },
-  });
+  }
+  const [state, setState] = useState(initialState);
+
+  useEffect(() => {
+    setState(getLanes() || initialState)
+    console.log("LANES", getLanes())
+  }, [])
+
+  useEffect(() => {
+    updateLocalStorage(state)
+  }, [state])
 
   const addInfos = (laneId, information) => {
     const currState = { ...state };
-    currState[laneId].infos = [...currState[laneId].infos, information];
-    setSate(currState);
+    currState[laneId].infos = [...currState[laneId].infos, information];    
+    setState(currState);
   };
 
   const removeInfos = (laneId, infoTitle) => {
@@ -54,7 +66,7 @@ export const LaneProvider = ({ children }) => {
       (title) => title === infoTitle
     );
     currState[laneId].infos.splice(itemIdex, 1);
-    setSate(currState);
+    setState(currState);
   };
 
   const moveCard = (souceLane, cardTitle, destinationLane) => {
@@ -75,7 +87,7 @@ export const LaneProvider = ({ children }) => {
     );
     sourceArray.splice(sourceCardIndex, 1);
 
-    setSate(currState);
+    setState(currState);
   };
 
   return (
