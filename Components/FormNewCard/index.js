@@ -2,8 +2,6 @@ import React, { useState, useContext } from "react";
 import { LaneContext } from "../../Context/LaneContext";
 import styles from './index.module.scss'
 
-// import "./style.scss";
-
 const FormNewCard = ({ id }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");

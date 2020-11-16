@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import Modal from "react-modal";
 import { LaneContext } from "../../Context/LaneContext";
-import  ItemTypes  from "../../../Constants";
+import  ItemTypes  from "../../Constants";
 import { useDrag } from "react-dnd";
 import styles from './index.module.scss'
 
