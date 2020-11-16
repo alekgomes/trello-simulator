@@ -13,10 +13,9 @@ const Lane = ({ title, id }) => {
     accept: ItemTypes.CARD,
     drop: ({title, laneId}) => moveCard(laneId, title, id),
   });
-
-
+  
   const cardInformation = state[id].infos;
-
+  
   return (
     <section className={styles.lane} ref={drop}>
       <h1 className={styles.title}>{title}</h1>
