@@ -8,17 +8,6 @@ const Header = () => {
     <header className={styles.header}>
       <br/>
       <SearchBox />
-      <div className={styles.header__userIcons}>
-        <span className={styles.userIcon}>
-          <ion-icon name="apps-outline"></ion-icon>
-        </span>
-        <span className={styles.userIcon}>
-          <ion-icon name="notifications"></ion-icon>
-        </span>
-        <span className={styles.userIcon}>
-          <ion-icon name="person"></ion-icon>
-        </span>
-      </div>
     </header>
   );
 };
