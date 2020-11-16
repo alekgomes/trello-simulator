@@ -28,6 +28,7 @@ const FormNewCard = ({ id }) => {
             type="text"
             placeholder="Título"
             onChange={(e) => setTitle(e.target.value)}
+            autoFocus
           />
           <textarea
             type="text"

@@ -6,7 +6,7 @@ import styles from "./style.module.scss";
 const Header = () => {
   return (
     <header className={styles.header}>
-      <span>Logo da marca</span>
+      <br/>
       <SearchBox />
       <div className={styles.header__userIcons}>
         <span className={styles.userIcon}>
