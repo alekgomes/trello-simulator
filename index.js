@@ -1,9 +1,9 @@
-
 import React from "react";
 import Aside from "./Layout/Aside";
 import Header from "./Layout/Header";
 import Main from "./Layout/Main";
-import Lane from "./Components/Lane";
+import Lanes from "./Components/Lanes";
+
 import { LaneProvider } from "./Context/LaneContext";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -18,10 +18,7 @@ const App = () => {
       <LaneProvider>
         <Main>
           <DndProvider backend={HTML5Backend}>
-            <Lane title="Planejada" id="lane01" />
-            <Lane title="Executando" id="lane02" />
-            <Lane title="Impasse" id="lane03" />
-            <Lane title="Finalizada" id="lane04" />
+            <Lanes />
           </DndProvider>
         </Main>
       </LaneProvider>
@@ -29,4 +26,4 @@ const App = () => {
   );
 };
 
-export default App
+export default App;

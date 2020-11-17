@@ -1,62 +1,44 @@
 import React, { useState, createContext, useEffect } from "react";
-import {getLanes, updateLocalStorage} from './LocalStorage'
-
+import { getLanes, updateLocalStorage } from "./LocalStorage";
+import { v4 as uuidv4 } from "uuid";
 export const LaneContext = createContext();
 
 export const LaneProvider = ({ children }) => {
+  const initialLanesState = [
+    {
+      infos: {
+        laneName: "Introdução",
+        cards: [
+          {
+            cardId: "01",
+            title: "Você pode criar um card!",
+            body: "Clique em um card para melhor visualizar suas informações",
+          },
+          {
+            cardId: "02",
+            title: "Os card são salvos no localStorage!!",
+            body: "Pode conferir",
+          },
+        ],
+      },
+    },
+  ];
 
-  const initialState = {
-    lane01: {
-      id: "lane01",
-      infos: [
-        {
-          title: "Você pode cliar em um card!",
-          body: "Clique em um card para melhor visualizar suas informações",
-        },
-      ],
-    },
-    lane02: {
-      id: "lane02",
-      infos: [
-        {
-          title: "Arraste esse card",
-          body: "Clique e arraste esse card para qualquer lane",
-        },
-      ],
-    },
-    lane03: {
-      id: "lane03",
-      infos: [
-        {
-          title: "É possível adicionar cards!",
-          body: "Clique no botão + para criar um novo card ",
-        },
-      ],
-    },
-    lane04: {
-      id: "lane04",
-      infos: [
-        {
-          title: "É possível remover um card!",
-          body: "Clique no X ao lado do card para excluí-lo ",
-        },
-      ],
-    },
-  }
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState(initialLanesState);
 
-  useEffect(() => {
-    setState(getLanes() || initialState)
-    console.log("LANES", getLanes())
-  }, [])
+  // useEffect(() => {
+  //   console.log("useEffect[] | setState(getLanes() || initialState)");
+  //   setState(getLanes() || initialState);
+  // }, []);
 
-  useEffect(() => {
-    updateLocalStorage(state)
-  }, [state])
+  // useEffect(() => {
+  //   console.log("useEffect[state]| updateLocalStorage(state)");
+  //   updateLocalStorage(state);
+  // }, [state]);
 
   const addInfos = (laneId, information) => {
     const currState = { ...state };
-    currState[laneId].infos = [...currState[laneId].infos, information];    
+    currState[laneId].infos = [...currState[laneId].infos, information];
     setState(currState);
   };
 
@@ -70,7 +52,6 @@ export const LaneProvider = ({ children }) => {
   };
 
   const moveCard = (souceLane, cardTitle, destinationLane) => {
-    // // copy infos
     const currState = { ...state };
     const sourceArray = currState[souceLane].infos;
     const information = sourceArray.filter(
@@ -81,7 +62,6 @@ export const LaneProvider = ({ children }) => {
       information,
     ];
 
-    // // remove infos
     const sourceCardIndex = sourceArray.findIndex(
       (info) => info.title === information.title
     );
@@ -97,4 +77,4 @@ export const LaneProvider = ({ children }) => {
   );
 };
 
-export default LaneProvider
+export default LaneProvider;

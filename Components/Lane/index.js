@@ -6,28 +6,21 @@ import ItemTypes from "../../Constants";
 import { useDrop } from "react-dnd";
 import styles from "./style.module.scss";
 
-const Lane = ({ title, id }) => {
-  const { state, moveCard } = useContext(LaneContext);
-
+const Lane = ({ laneName, cards, id }) => {
   const [, drop] = useDrop({
     accept: ItemTypes.CARD,
-    drop: ({title, laneId}) => moveCard(laneId, title, id),
+    drop: ({ title, laneId }) => moveCard(laneId, title, id),
   });
-  
-  const cardInformation = state[id].infos;
-  
+  console.log("CARDS:", cards);
   return (
     <section className={styles.lane} ref={drop}>
-      <h1 className={styles.title}>{title}</h1>
-      <FormNewCard id={id} />
-      {cardInformation.map((info) => (
-        <Card
-          key={info.title}
-          laneId={id}
-          title={info.title}
-          body={info.body}
-        />
-      ))}
+      <h1 className={styles.title}>{laneName}</h1>
+      <FormNewCard />
+      {console.log("TESTE")}
+      {cards.map((info) => {
+        const { id, title, body } = info;
+        return <Card id={id} key={title} title={title} body={body} />;
+      })}
     </section>
   );
 };
