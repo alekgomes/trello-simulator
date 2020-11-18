@@ -24,6 +24,9 @@
   },
   "homepage": "https://github.com/alekgomes/bsine-test-with-next#readme",
   "dependencies": {
+    "D": "^1.0.0",
+    "chai": "^4.2.0",
+    "mocha": "^8.2.1",
     "next": "^10.0.1",
     "react": "^17.0.1",
     "react-dnd": "^11.1.3",
