@@ -3,6 +3,15 @@ import { getLanes, updateLocalStorage } from "./LocalStorage";
 import { v4 as uuidv4 } from "uuid";
 export const LaneContext = createContext();
 
+export const createNewLane = (name) => {
+  return {
+    infos: {
+      laneName: name,
+      cards: [],
+    },
+  };
+};
+
 export const LaneProvider = ({ children }) => {
   const initialLanesState = [
     {
