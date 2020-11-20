@@ -1,27 +1,25 @@
 import React, { useState, useContext } from "react";
 import { LaneContext } from "../../Context/LaneContext";
-import styles from './index.module.scss'
+import styles from "./index.module.scss";
 
-const FormNewCard = ({ id }) => {
+const FormNewCard = ({ laneName, laneId }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
   const [showButton, setShowButton] = useState(true);
 
-  const { addInfos } = useContext(LaneContext);
+  const { addCard } = useContext(LaneContext);
 
   const hadleSubmit = (e) => {
     e.preventDefault();
-    addInfos(id, { title, body });
-    setShowButton(true)
+    addCard(laneId, { title, body });
+    setShowButton(true);
   };
 
   return (
     <>
       {showButton ? (
-        <button onClick={() => setShowButton(false)}>
-          <ion-icon name="add-outline"></ion-icon>
-        </button>
+        <button onClick={() => setShowButton(false)}>+</button>
       ) : (
         <form className={styles.form}>
           <input

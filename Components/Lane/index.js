@@ -1,33 +1,35 @@
 import React, { useContext } from "react";
 import FormNewCard from "../FormNewCard";
 import Card from "../Card";
-import { LaneContext } from "../../Context/LaneContext";
 import ItemTypes from "../../Constants";
 import { useDrop } from "react-dnd";
 import styles from "./style.module.scss";
+import { LaneContext } from "../../Context/LaneContext";
 
-const Lane = ({ title, id }) => {
-  const { state, moveCard } = useContext(LaneContext);
-
+const Lane = ({ laneName, cards, laneId }) => {
+  const { moveCard } = useContext(LaneContext);
+  const currLane = laneId;
   const [, drop] = useDrop({
     accept: ItemTypes.CARD,
-    drop: ({title, laneId}) => moveCard(laneId, title, id),
+    drop: ({ laneId, cardId }) => moveCard(laneId, cardId, currLane),
   });
-  
-  const cardInformation = state[id].infos;
-  
   return (
     <section className={styles.lane} ref={drop}>
-      <h1 className={styles.title}>{title}</h1>
-      <FormNewCard id={id} />
-      {cardInformation.map((info) => (
-        <Card
-          key={info.title}
-          laneId={id}
-          title={info.title}
-          body={info.body}
-        />
-      ))}
+      <h1 className={styles.title}>{laneName}</h1>
+      <FormNewCard laneName={laneName} laneId={laneId} />
+      {cards.map((info) => {
+        const { cardId, title, body } = info;
+        return (
+          <Card
+            key={cardId}
+            cardId={cardId}
+            title={title}
+            body={body}
+            laneName={laneName}
+            laneId={laneId}
+          />
+        );
+      })}
     </section>
   );
 };

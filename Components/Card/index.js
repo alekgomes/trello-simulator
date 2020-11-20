@@ -1,20 +1,18 @@
 import React, { useContext, useState } from "react";
 import Modal from "react-modal";
 import { LaneContext } from "../../Context/LaneContext";
-import  ItemTypes  from "../../Constants";
+import ItemTypes from "../../Constants";
 import { useDrag } from "react-dnd";
-import styles from './index.module.scss'
+import styles from "./index.module.scss";
 
-// import "./style.scss";
+const Card = ({ cardId, title, body, laneName, laneId }) => {
+  // setTimeout(() => Modal.setAppElement(document.querySelector("#root")), 2000);
 
-const Card = ({ title, body, laneId }) => {
-  // Modal.setAppElement("#root");
-
-  const [{ isDragging }, drag] = useDrag({
-    item: { type: ItemTypes.CARD, title, body, laneId },
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    })
+  const [_, drag] = useDrag({
+    item: { type: ItemTypes.CARD, laneId, cardId },
+    // collect: (monitor) => ({
+    //   isDragging: !!monitor.isDragging(),
+    // }),
   });
 
   const { removeInfos } = useContext(LaneContext);
@@ -53,14 +51,17 @@ const Card = ({ title, body, laneId }) => {
       <h1>{title}</h1>
       <br />
       <p className={styles.body}>{body}</p>
-      <button onClick={() => removeInfos(laneId, title)} className="remove">
-        X
+      <button
+        onClick={() => removeInfos(laneId, cardId)}
+        className={styles.card__remove}
+      >
+        remover card
       </button>
 
       <Modal
         isOpen={modalIsOpen}
         style={customStyles}
-        onRequestClose={  (e) => {
+        onRequestClose={(e) => {
           closeModal(e);
         }}
       >
