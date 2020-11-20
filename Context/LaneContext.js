@@ -18,10 +18,26 @@ export const laneController = () => {
     return state;
   };
 
-  const addCard = (laneName, information) => {};
+  const addCard = (laneId, information, state) => {
+    const { title, body } = information;
+    const currLane = state
+      .filter((lane) => laneId === lane.laneId) // return array with single object
+      .reduce((_, curr) => {
+        return curr; // return object
+      });
+
+    currLane.cards.push({
+      cardId: uuidv4(),
+      title: title,
+      body: body,
+    });
+
+    return state;
+  };
 
   return {
     removeCard,
+    addCard,
   };
 };
 
@@ -64,26 +80,15 @@ export const LaneProvider = ({ children }) => {
   // }, [state]);
 
   const addNewLane = (lane) => {
-    console.log("addNewLane chamada");
     setLanesState([...lanesState, lane]);
   };
 
   const addCard = (laneId, information) => {
-    const { title, body } = information;
-    const currState = [...lanesState];
-    const currLane = currState
-      .filter((lane) => laneId === lane.laneId) // return array with single object
-      .reduce((_, curr) => {
-        return curr; // return object
-      });
+    const newState = laneController().addCard(laneId, information, [
+      ...lanesState,
+    ]);
 
-    currLane.cards.push({
-      cardId: uuidv4(),
-      title: title,
-      body: body,
-    });
-
-    setLanesState(currState);
+    setLanesState(newState);
   };
 
   const removeInfos = (laneName, cardId) => {
@@ -122,9 +127,3 @@ export const LaneProvider = ({ children }) => {
 };
 
 export default LaneProvider;
-
-const laneState = {
-  intro: {
-    cards: ["asd", 123],
-  },
-};
