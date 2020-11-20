@@ -7,7 +7,9 @@ function Lanes() {
 
   return lanesState.map((lane) => {
     const { laneId, laneName, cards } = lane;
-    return <Lane laneId={laneId} laneName={laneName} cards={cards} />;
+    return (
+      <Lane key={laneId} laneId={laneId} laneName={laneName} cards={cards} />
+    );
   });
 }
 

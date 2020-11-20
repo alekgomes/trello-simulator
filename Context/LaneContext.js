@@ -77,12 +77,12 @@ export const initialLanesState = [
   },
   {
     laneId: "sookf",
-    laneName: "Teste",
+    laneName: "Armazenamos seu progresso",
     cards: [
       {
         cardId: "124",
-        title: "Você pode criar um card!",
-        body: "Clique em um card para melhor visualizar suas informações",
+        title: "Crie um novo card e aperte f5!",
+        body: "O estado da aplicação é armazenado no localStorage!",
       },
     ],
   },
@@ -91,17 +91,16 @@ export const initialLanesState = [
 export const LaneProvider = ({ children }) => {
   const [lanesState, setLanesState] = useState(initialLanesState);
 
-  // useEffect(() => {
-  //   console.log("useEffect[] | setState(getLanes() || initialState)");
-  //   setState(getLanes() || initialState);
-  // }, []);
+  useEffect(() => {
+    setLanesState(getLanes() || initialLanesState);
+  }, []);
 
-  // useEffect(() => {
-  //   console.log("useEffect[state]| updateLocalStorage(state)");
-  //   updateLocalStorage(state);
-  // }, [state]);
+  useEffect(() => {
+    updateLocalStorage(lanesState);
+  }, [lanesState]);
 
   const addNewLane = (lane) => {
+    lane.laneId = uuidv4();
     setLanesState([...lanesState, lane]);
   };
 
@@ -113,40 +112,19 @@ export const LaneProvider = ({ children }) => {
     setLanesState(newState);
   };
 
-  const removeInfos = (laneName, cardId) => {
-    const newState = laneController().removeCard(laneName, cardId, [
+  const removeInfos = (laneId, cardId) => {
+    const newState = laneController().removeCard(laneId, cardId, [
       ...lanesState,
     ]);
     setLanesState(newState);
   };
 
   const moveCard = (sourceLane, cardId, targetLane) => {
-    console.log(sourceLane);
-    console.log(targetLane);
     const newState = laneController().moveCard(sourceLane, cardId, targetLane, [
       ...lanesState,
     ]);
     setLanesState(newState);
   };
-
-  // const moveCard = (souceLane, cardTitle, destinationLane) => {
-  //   const currState = { ...state };
-  //   const sourceArray = currState[souceLane].infos;
-  //   const information = sourceArray.filter(
-  //     (info) => info.title === cardTitle
-  //   )[0];
-  //   currState[destinationLane].infos = [
-  //     ...currState[destinationLane].infos,
-  //     information,
-  //   ];
-
-  //   const sourceCardIndex = sourceArray.findIndex(
-  //     (info) => info.title === information.title
-  //   );
-  //   sourceArray.splice(sourceCardIndex, 1);
-
-  //   setState(currState);
-  // };
 
   return (
     <LaneContext.Provider

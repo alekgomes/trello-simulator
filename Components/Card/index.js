@@ -21,7 +21,7 @@ const Card = ({ cardId, title, body, laneName, laneId }) => {
 
   const closeModal = (e) => {
     e.stopPropagation();
-    // setModalIsOpen(false);
+    setModalIsOpen(false);
   };
 
   const customStyles = {
@@ -45,17 +45,17 @@ const Card = ({ cardId, title, body, laneName, laneId }) => {
       ref={drag}
       className={styles.card}
       onClick={() => {
-        // setModalIsOpen(true);
+        setModalIsOpen(true);
       }}
     >
       <h1>{title}</h1>
       <br />
       <p className={styles.body}>{body}</p>
       <button
-        onClick={() => removeInfos(laneName, cardId)}
+        onClick={() => removeInfos(laneId, cardId)}
         className={styles.card__remove}
       >
-        X BOTÃO CERTO
+        remover card
       </button>
 
       <Modal

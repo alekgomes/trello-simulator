@@ -21,6 +21,7 @@ const Lane = ({ laneName, cards, laneId }) => {
         const { cardId, title, body } = info;
         return (
           <Card
+            key={cardId}
             cardId={cardId}
             title={title}
             body={body}
