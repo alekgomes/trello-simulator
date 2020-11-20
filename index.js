@@ -13,9 +13,9 @@ import styles from "./style.module.scss";
 const App = () => {
   return (
     <div className={styles.root}>
-      <Header />
-      <Aside />
       <LaneProvider>
+        <Header />
+        <Aside />
         <Main>
           <DndProvider backend={HTML5Backend}>
             <Lanes />

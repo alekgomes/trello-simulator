@@ -5,17 +5,15 @@ import ItemTypes from "../../Constants";
 import { useDrag } from "react-dnd";
 import styles from "./index.module.scss";
 
-// import "./style.scss";
+const Card = ({ cardId, title, body, laneName }) => {
+  // setTimeout(() => Modal.setAppElement(document.querySelector("#root")), 2000);
 
-const Card = ({ title, body }) => {
-  // Modal.setAppElement("#root");
-
-  // const [{ isDragging }, drag] = useDrag({
-  //   item: { type: ItemTypes.CARD, title, body, laneId },
-  //   collect: (monitor) => ({
-  //     isDragging: !!monitor.isDragging(),
-  //   }),
-  // });
+  const [_, drag] = useDrag({
+    item: { type: ItemTypes.CARD, information: { title, body } },
+    // collect: (monitor) => ({
+    //   isDragging: !!monitor.isDragging(),
+    // }),
+  });
 
   const { removeInfos } = useContext(LaneContext);
 
@@ -23,7 +21,7 @@ const Card = ({ title, body }) => {
 
   const closeModal = (e) => {
     e.stopPropagation();
-    setModalIsOpen(false);
+    // setModalIsOpen(false);
   };
 
   const customStyles = {
@@ -44,17 +42,20 @@ const Card = ({ title, body }) => {
 
   return (
     <div
-      // ref={drag}
+      ref={drag}
       className={styles.card}
-      // onClick={() => {
-      //   setModalIsOpen(true);
-      // }}
+      onClick={() => {
+        // setModalIsOpen(true);
+      }}
     >
       <h1>{title}</h1>
       <br />
       <p className={styles.body}>{body}</p>
-      <button onClick={() => removeInfos(title)} className="remove">
-        X
+      <button
+        onClick={() => removeInfos(laneName, cardId)}
+        className={styles.card__remove}
+      >
+        X BOTÃO CERTO
       </button>
 
       <Modal

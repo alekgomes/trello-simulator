@@ -2,7 +2,7 @@
 
 .root {
   display: grid;
-  grid-template-columns: 100px calc(100vw - 100px);
-  grid-template-rows: 64px calc(100vh - 64px);
-  font-family: 'Noto Sans JP', sans-serif;
+  grid-template-columns: 100px auto;
+  grid-template-rows: 64px auto;
+  font-family: "Noto Sans JP", sans-serif;
 }

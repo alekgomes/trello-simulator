@@ -3,37 +3,56 @@ import { getLanes, updateLocalStorage } from "./LocalStorage";
 import { v4 as uuidv4 } from "uuid";
 export const LaneContext = createContext();
 
-export const createNewLane = (name) => {
+export const laneController = () => {
+  const removeCard = (laneId, cardId, state) => {
+    const currLane = state
+      .filter((lane) => laneId === lane.laneName) // return array with single object
+      .reduce((_, curr) => {
+        return curr; // return object
+      });
+
+    const cardIndex = currLane.cards.findIndex(
+      (item) => item.cardId === cardId
+    );
+    currLane.cards.splice(cardIndex, 1);
+
+    return state;
+  };
+
+  const addCard = (laneName, information) => {};
+
   return {
-    infos: {
-      laneName: name,
-      cards: [],
-    },
+    removeCard,
   };
 };
 
-export const LaneProvider = ({ children }) => {
-  const initialLanesState = [
-    {
-      infos: {
-        laneName: "Introdução",
-        cards: [
-          {
-            cardId: "01",
-            title: "Você pode criar um card!",
-            body: "Clique em um card para melhor visualizar suas informações",
-          },
-          {
-            cardId: "02",
-            title: "Os card são salvos no localStorage!!",
-            body: "Pode conferir",
-          },
-        ],
+const initialLanesState = [
+  {
+    laneId: "ijrf",
+    laneName: "Introdução",
+    cards: [
+      {
+        cardId: "123",
+        title: "Você pode criar um card!",
+        body: "Clique em um card para melhor visualizar suas informações",
       },
-    },
-  ];
+    ],
+  },
+  {
+    laneId: "sookf",
+    laneName: "Teste",
+    cards: [
+      {
+        cardId: "124",
+        title: "Você pode criar um card!",
+        body: "Clique em um card para melhor visualizar suas informações",
+      },
+    ],
+  },
+];
 
-  const [state, setState] = useState(initialLanesState);
+export const LaneProvider = ({ children }) => {
+  const [lanesState, setLanesState] = useState(initialLanesState);
 
   // useEffect(() => {
   //   console.log("useEffect[] | setState(getLanes() || initialState)");
@@ -45,45 +64,71 @@ export const LaneProvider = ({ children }) => {
   //   updateLocalStorage(state);
   // }, [state]);
 
-  const addInfos = (laneId, information) => {
-    const currState = { ...state };
-    currState[laneId].infos = [...currState[laneId].infos, information];
-    setState(currState);
+  const addNewLane = (lane) => {
+    console.log("addNewLane chamada");
+    setLanesState([...lanesState, lane]);
   };
 
-  const removeInfos = (laneId, infoTitle) => {
-    const currState = { ...state };
-    const itemIdex = currState[laneId].infos.findIndex(
-      (title) => title === infoTitle
+  const addCard = (laneId, information) => {
+    const { title, body } = information;
+    const currState = [...lanesState];
+    const currLane = currState
+      .filter((lane) => laneId === lane.laneId) // return array with single object
+      .reduce((_, curr) => {
+        return curr; // return object
+      });
+
+    currLane.cards.push({
+      cardId: uuidv4(),
+      title: title,
+      body: body,
+    });
+
+    setLanesState(currState);
+  };
+
+  const removeInfos = (laneName, cardId) => {
+    const lanesStateCp = [...lanesState];
+    const newState = laneController().removeCard(
+      laneName,
+      cardId,
+      lanesStateCp
     );
-    currState[laneId].infos.splice(itemIdex, 1);
-    setState(currState);
+    setLanesState(newState);
   };
 
-  const moveCard = (souceLane, cardTitle, destinationLane) => {
-    const currState = { ...state };
-    const sourceArray = currState[souceLane].infos;
-    const information = sourceArray.filter(
-      (info) => info.title === cardTitle
-    )[0];
-    currState[destinationLane].infos = [
-      ...currState[destinationLane].infos,
-      information,
-    ];
+  // const moveCard = (souceLane, cardTitle, destinationLane) => {
+  //   const currState = { ...state };
+  //   const sourceArray = currState[souceLane].infos;
+  //   const information = sourceArray.filter(
+  //     (info) => info.title === cardTitle
+  //   )[0];
+  //   currState[destinationLane].infos = [
+  //     ...currState[destinationLane].infos,
+  //     information,
+  //   ];
 
-    const sourceCardIndex = sourceArray.findIndex(
-      (info) => info.title === information.title
-    );
-    sourceArray.splice(sourceCardIndex, 1);
+  //   const sourceCardIndex = sourceArray.findIndex(
+  //     (info) => info.title === information.title
+  //   );
+  //   sourceArray.splice(sourceCardIndex, 1);
 
-    setState(currState);
-  };
+  //   setState(currState);
+  // };
 
   return (
-    <LaneContext.Provider value={{ state, addInfos, removeInfos, moveCard }}>
+    <LaneContext.Provider
+      value={{ lanesState, addCard, removeInfos, addNewLane }}
+    >
       {children}
     </LaneContext.Provider>
   );
 };
 
 export default LaneProvider;
+
+const laneState = {
+  intro: {
+    cards: ["asd", 123],
+  },
+};
