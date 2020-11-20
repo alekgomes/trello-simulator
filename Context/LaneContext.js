@@ -35,9 +35,31 @@ export const laneController = () => {
     return state;
   };
 
+  const moveCard = (sourceLane, cardId, targetLane, state) => {
+    const srcLane = state
+      .filter((lane) => sourceLane === lane.laneId) // return array with single object
+      .reduce((_, curr) => {
+        return curr; // return object
+      });
+
+    const trgtLane = state
+      .filter((lane) => targetLane === lane.laneId) // return array with single object
+      .reduce((_, curr) => {
+        return curr; // return object
+      });
+
+    const cardIndex = srcLane.cards.findIndex((item) => item.cardId === cardId);
+    const cardCopy = { ...srcLane.cards[cardIndex] };
+    trgtLane.cards.push(cardCopy);
+    srcLane.cards.splice(cardIndex, 1);
+
+    return state;
+  };
+
   return {
     removeCard,
     addCard,
+    moveCard,
   };
 };
 
@@ -98,6 +120,15 @@ export const LaneProvider = ({ children }) => {
     setLanesState(newState);
   };
 
+  const moveCard = (sourceLane, cardId, targetLane) => {
+    console.log(sourceLane);
+    console.log(targetLane);
+    const newState = laneController().moveCard(sourceLane, cardId, targetLane, [
+      ...lanesState,
+    ]);
+    setLanesState(newState);
+  };
+
   // const moveCard = (souceLane, cardTitle, destinationLane) => {
   //   const currState = { ...state };
   //   const sourceArray = currState[souceLane].infos;
@@ -119,7 +150,7 @@ export const LaneProvider = ({ children }) => {
 
   return (
     <LaneContext.Provider
-      value={{ lanesState, addCard, removeInfos, addNewLane }}
+      value={{ lanesState, addCard, removeInfos, addNewLane, moveCard }}
     >
       {children}
     </LaneContext.Provider>

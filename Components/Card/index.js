@@ -5,11 +5,11 @@ import ItemTypes from "../../Constants";
 import { useDrag } from "react-dnd";
 import styles from "./index.module.scss";
 
-const Card = ({ cardId, title, body, laneName }) => {
+const Card = ({ cardId, title, body, laneName, laneId }) => {
   // setTimeout(() => Modal.setAppElement(document.querySelector("#root")), 2000);
 
   const [_, drag] = useDrag({
-    item: { type: ItemTypes.CARD, information: { title, body } },
+    item: { type: ItemTypes.CARD, laneId, cardId },
     // collect: (monitor) => ({
     //   isDragging: !!monitor.isDragging(),
     // }),
