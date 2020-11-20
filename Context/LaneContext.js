@@ -6,11 +6,10 @@ export const LaneContext = createContext();
 export const laneController = () => {
   const removeCard = (laneId, cardId, state) => {
     const currLane = state
-      .filter((lane) => laneId === lane.laneName) // return array with single object
+      .filter((lane) => laneId === lane.laneId) // return array with single object
       .reduce((_, curr) => {
         return curr; // return object
-      });
-
+      }, {});
     const cardIndex = currLane.cards.findIndex(
       (item) => item.cardId === cardId
     );
@@ -26,7 +25,7 @@ export const laneController = () => {
   };
 };
 
-const initialLanesState = [
+export const initialLanesState = [
   {
     laneId: "ijrf",
     laneName: "Introdução",
@@ -88,12 +87,9 @@ export const LaneProvider = ({ children }) => {
   };
 
   const removeInfos = (laneName, cardId) => {
-    const lanesStateCp = [...lanesState];
-    const newState = laneController().removeCard(
-      laneName,
-      cardId,
-      lanesStateCp
-    );
+    const newState = laneController().removeCard(laneName, cardId, [
+      ...lanesState,
+    ]);
     setLanesState(newState);
   };
 
