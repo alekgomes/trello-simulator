@@ -19,7 +19,12 @@ const FormNewCard = ({ laneName, laneId }) => {
   return (
     <>
       {showButton ? (
-        <button onClick={() => setShowButton(false)}>+</button>
+        <button
+          className={styles.buttonNew}
+          onClick={() => setShowButton(false)}
+        >
+          + Adicionar outro cartão
+        </button>
       ) : (
         <form className={styles.form}>
           <input
