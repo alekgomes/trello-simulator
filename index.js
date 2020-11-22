@@ -3,6 +3,7 @@ import Aside from "./Layout/Aside";
 import Header from "./Layout/Header";
 import Main from "./Layout/Main";
 import Lanes from "./Components/Lanes";
+import NewLaneWrapper from "./Components/NewLaneWrapper";
 
 import { LaneProvider } from "./Context/LaneContext";
 import { DndProvider } from "react-dnd";
@@ -19,6 +20,7 @@ const App = () => {
         <Main>
           <DndProvider backend={HTML5Backend}>
             <Lanes />
+            <NewLaneWrapper />
           </DndProvider>
         </Main>
       </LaneProvider>

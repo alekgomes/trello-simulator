@@ -1,7 +1,22 @@
 .form {
+  margin-top: 1rem;
   input,
   textarea {
     box-sizing: border-box;
     width: 100%;
+  }
+}
+
+.buttonNew {
+  padding: 4px 8px;
+  margin-top: 1rem;
+  height: max-content;
+  border: dashed 1px #eaeaea;
+  vertical-align: middle;
+  cursor: pointer;
+  font-weight: bold;
+
+  &:hover {
+    background-color: white;
   }
 }

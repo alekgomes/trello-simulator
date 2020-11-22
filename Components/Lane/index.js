@@ -14,9 +14,9 @@ const Lane = ({ laneName, cards, laneId }) => {
     drop: ({ laneId, cardId }) => moveCard(laneId, cardId, currLane),
   });
   return (
-    <section className={styles.lane} ref={drop}>
+    <div className={styles.lane} ref={drop}>
       <h1 className={styles.title}>{laneName}</h1>
-      <FormNewCard laneName={laneName} laneId={laneId} />
+      <hr />
       {cards.map((info) => {
         const { cardId, title, body } = info;
         return (
@@ -30,7 +30,9 @@ const Lane = ({ laneName, cards, laneId }) => {
           />
         );
       })}
-    </section>
+      <br />
+      <FormNewCard laneName={laneName} laneId={laneId} />
+    </div>
   );
 };
 
