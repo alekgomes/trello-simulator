@@ -65,24 +65,18 @@ export const laneController = () => {
 
 export const initialLanesState = [
   {
-    laneId: "ijrf",
+    laneId: uuidv4(),
     laneName: "Introdução",
     cards: [
       {
-        cardId: "123",
-        title: "Você pode criar um card!",
-        body: "Clique em um card para melhor visualizar suas informações",
+        cardId: uuidv4(),
+        title: "Você pode criar um cartão!",
+        body: "Clique em um cartão para melhor visualizar suas informações",
       },
-    ],
-  },
-  {
-    laneId: "sookf",
-    laneName: "Armazenamos seu progresso",
-    cards: [
       {
-        cardId: "124",
-        title: "Crie um novo card e aperte f5!",
-        body: "O estado da aplicação é armazenado no localStorage!",
+        cardId: uuidv4(),
+        title: "Remover card também é facil!",
+        body: "O botão abaixo deleta o cartão",
       },
     ],
   },

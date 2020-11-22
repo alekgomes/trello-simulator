@@ -25,16 +25,8 @@
     margin: 0;
   }
 
-  .remove {
-    border: none;
-    border-radius: 3px;
-    background-color: tomato;
-    color: #eaeaea;
-    position: absolute;
-    height: 26px;
-    top: 0;
-    right: 0;
-    transform: translateX(100%);
+  &__remove {
+    margin-top: 12px;
   }
 }
 
