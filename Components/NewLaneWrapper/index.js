@@ -30,6 +30,7 @@ function NewLaneWrapper() {
             type="text"
             id="laneName"
             value={laneName}
+            autoFocus
             placeholder="nome da lista"
             onChange={(e) => setLaneName(e.target.value)}
           />

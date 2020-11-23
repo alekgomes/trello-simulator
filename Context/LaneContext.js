@@ -56,10 +56,17 @@ export const laneController = () => {
     return state;
   };
 
+  const removeLane = (laneId, state) => {
+    const laneIndex = state.findIndex((lane) => lane.laneId === laneId);
+    state.splice(laneIndex, 1);
+    return state;
+  };
+
   return {
     removeCard,
     addCard,
     moveCard,
+    removeLane,
   };
 };
 
@@ -120,9 +127,21 @@ export const LaneProvider = ({ children }) => {
     setLanesState(newState);
   };
 
+  const removeLane = (laneId) => {
+    const newState = laneController().removeLane(laneId, [...lanesState]);
+    setLanesState(newState);
+  };
+
   return (
     <LaneContext.Provider
-      value={{ lanesState, addCard, removeInfos, addNewLane, moveCard }}
+      value={{
+        lanesState,
+        addCard,
+        removeInfos,
+        addNewLane,
+        moveCard,
+        removeLane,
+      }}
     >
       {children}
     </LaneContext.Provider>
